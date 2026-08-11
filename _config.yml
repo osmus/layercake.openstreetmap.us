@@ -1,0 +1,39 @@
+title: Layercake
+tagline: Thematic extracts of OpenStreetMap data in cloud-native file formats
+description: >-
+  OpenStreetMap data extracted into thematic layers and converted to
+  cloud-native file formats that are easy to use with software from DuckDB to
+  QGIS.
+url: https://layercake.openstreetmap.us
+permalink: pretty
+
+data_url: https://data.openstreetmap.us/layercake
+repo_url: https://github.com/osmus/layercake
+wiki_url: https://wiki.openstreetmap.org/wiki
+
+collections:
+  layers:
+    output: true
+    permalink: /layers/:name/
+
+defaults:
+  - scope: { type: layers }
+    values: { layout: layer, preload_explorer: true }
+
+# Columns that are structural rather than OSM tags, so nothing on the schema
+# table should link them to a wiki page.
+structural_columns: [type, id, bbox, geometry]
+
+exclude:
+  - Makefile
+  - README.md
+  - biome.json
+  - dist
+  - explore
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - vite.config.ts
+
+keep_files:
+  - explore

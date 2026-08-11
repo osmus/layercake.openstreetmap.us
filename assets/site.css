@@ -1,0 +1,351 @@
+/* Stylesheet for the Jekyll pages. The explorer has its own (explore/styles.css) */
+
+:root {
+  --bg: #ffffff;
+  --bg-sunken: #f2f2f2;
+  --ink: #000000;
+  --line: #cfcfcf;
+  --accent: #41facf;
+
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+mark {
+  background: color-mix(in srgb, var(--accent) 50%, transparent);
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+[hidden] {
+  display: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.nav a {
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.nav a:not(.nav-home) {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.nav-home {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.nav :focus-visible {
+  outline-color: var(--bg);
+}
+
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+/* Landing page */
+
+.wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.lede {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.lede h1 {
+  font-size: clamp(38px, 7vw, 58px);
+  font-weight: 500;
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+}
+
+.lede-sub {
+  max-width: 54ch;
+  margin-top: 1.5rem;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2.5rem;
+}
+
+.btn-lg {
+  padding: 0.6rem 1.1rem;
+  font-size: 15px;
+}
+
+.hero {
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  max-width: 20ch;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero-blurb {
+  max-width: 62ch;
+  margin-top: 1rem;
+  font-size: 17px;
+}
+
+.hero-meta {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.dataset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.dataset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--bg);
+}
+
+.dataset-body {
+  flex: 1;
+  min-width: min(100%, 22rem);
+}
+
+.dataset-thumb {
+  width: 160px;
+  height: auto;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.dataset-name {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.dataset-name a {
+  text-decoration: none;
+}
+
+.dataset-name a:hover {
+  text-decoration: underline;
+}
+
+.dataset-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.dataset-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.dataset-summary {
+  max-width: 62ch;
+  margin-top: 0.75rem;
+}
+
+.dataset-url {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.dataset-url code {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0.35rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+  background: var(--bg-sunken);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--bg-sunken);
+  border-color: var(--ink);
+}
+
+.btn-primary {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn-primary:hover {
+  color: var(--ink);
+  background: var(--bg);
+  border-color: var(--ink);
+}
+
+.prose {
+  max-width: 72ch;
+}
+
+.prose h1 {
+  margin-bottom: 1.5rem;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.prose h2 {
+  margin: 2.5rem 0 0.75rem;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  margin-bottom: 1rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-sunken);
+  padding: 1px 4px;
+}
+
+.prose pre {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  overflow-x: auto;
+  background: var(--bg-sunken);
+}
+
+.prose pre code {
+  padding: 0;
+  background: none;
+}
+
+.schema-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.schema {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.schema th {
+  padding: 0.3rem 0.75rem 0.3rem 0;
+  text-align: left;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--ink);
+}
+
+.schema td {
+  padding: 0.3rem 0.75rem 0.3rem 0;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+
+.schema-type {
+  font-style: italic;
+}
+
+.footer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}

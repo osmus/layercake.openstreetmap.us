@@ -1,0 +1,9 @@
+{%- if include.n >= 1000000000 -%}
+{{- include.n | divided_by: 1000000000.0 | round: 1 -}}B
+{%- elsif include.n >= 1000000 -%}
+{{- include.n | divided_by: 1000000.0 | round: 1 -}}M
+{%- elsif include.n >= 1000 -%}
+{{- include.n | divided_by: 1000.0 | round: 1 -}}K
+{%- else -%}
+{{- include.n -}}
+{%- endif -%}

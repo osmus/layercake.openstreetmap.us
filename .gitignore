@@ -1,0 +1,8 @@
+node_modules/
+dist/
+
+_site/
+.jekyll-cache/
+
+_data/schema/
+_data/sizes.json

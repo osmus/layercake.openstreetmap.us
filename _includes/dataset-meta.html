@@ -1,0 +1,15 @@
+{%- assign desc = site.data.schema[include.id] -%}
+{%- assign bytes = site.data.sizes[include.id] -%}
+{%- assign rows = desc.rows -%}
+{%- assign columns = 0 -%}
+{%- for field in desc.schema.fields -%}
+  {%- unless field.name == 'bbox' or field.name == 'geometry' -%}
+    {%- assign columns = columns | plus: 1 -%}
+  {%- endunless -%}
+{%- endfor -%}
+<p class="dataset-meta">
+{% include count.html n=rows %} features
+&middot; {{ desc.metadata.columns.geometry.geometry_types | join: ', ' }}
+&middot; {{ columns }} columns
+&middot; {% if bytes >= 1073741824 %}{{ bytes | divided_by: 1073741824.0 | round: 1 }} GiB{% else %}{{ bytes | divided_by: 1048576.0 | round: 0 }} MiB{% endif %}
+</p>

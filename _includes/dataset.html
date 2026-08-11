@@ -1,0 +1,28 @@
+{%- assign url = site.data_url | append: '/' | append: include.layer.layer | append: '.parquet' -%}
+
+<article class="dataset">
+  {%- if include.layer.thumbnail %}
+  <img class="dataset-thumb" src="{{ include.layer.thumbnail | relative_url }}"
+       alt="{{ include.layer.thumbnail_alt }}" loading="lazy" width="320" height="200">
+  {%- endif %}
+
+  <div class="dataset-body">
+  <h2 class="dataset-name">
+    <a href="{{ include.layer.url | relative_url }}">{{ include.layer.title }}</a>
+  </h2>
+
+  {% include dataset-meta.html id=include.layer.layer %}
+
+  <p class="dataset-summary">{{ include.layer.summary }}</p>
+
+  <p class="dataset-url">
+    <code>{{ url }}</code>
+    <button type="button" class="btn" data-copy="{{ url }}">Copy</button>
+  </p>
+
+  <p class="dataset-actions">
+    <a class="btn btn-primary" href="{{ '/explore/' | relative_url }}?layer={{ include.layer.layer }}">Open in viewer</a>
+    <a class="btn" href="{{ include.layer.url | relative_url }}">Details and schema</a>
+  </p>
+  </div>
+</article>

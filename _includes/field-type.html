@@ -1,0 +1,17 @@
+{%- if include.field.fields -%}
+{%- if include.field.annotation == 'list' -%}
+{%- assign element = include.field.fields[0].fields[0] -%}
+list&lt;{% include field-type.html field=element %}&gt;
+{%- elsif include.field.annotation == 'map' -%}
+{%- assign key = include.field.fields[0].fields[0] -%}
+map&lt;{% include field-type.html field=key %},{% assign value = include.field.fields[0].fields[1] %} {% include field-type.html field=value %}&gt;
+{%- else -%}
+struct
+{%- endif -%}
+{%- elsif include.field.annotation == 'string' -%}
+string
+{%- elsif include.field.type -%}
+{{- include.field.type -}}
+{%- else -%}
+{{- include.field.annotation -}}
+{%- endif -%}

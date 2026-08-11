@@ -1,0 +1,49 @@
+---
+layout: base
+---
+{%- assign desc = site.data.schema[page.layer] -%}
+{%- assign url = site.data_url | append: '/' | append: page.layer | append: '.parquet' -%}
+
+<main class="page">
+  <div class="hero">
+    <h1>{{ page.title }}</h1>
+    {% include dataset-meta.html id=page.layer %}
+    <p class="hero-blurb">{{ page.summary }}</p>
+
+    <p class="dataset-url">
+      <code>{{ url }}</code>
+      <button type="button" class="btn" data-copy="{{ url }}">Copy</button>
+    </p>
+
+    <p class="dataset-actions">
+      <a class="btn btn-primary" href="{{ '/explore/' | relative_url }}?layer={{ page.layer }}">Open in viewer</a>
+    </p>
+  </div>
+
+  <div class="prose">
+    {{ content }}
+
+    <h2>Schema</h2>
+
+    <table class="schema">
+      <thead>
+        <tr><th>Column</th><th>Type</th></tr>
+      </thead>
+      <tbody>
+        {%- for field in desc.schema.fields %}
+        <tr>
+          <td>
+            {%- if site.structural_columns contains field.name or field.annotation == 'map' -%}
+              {{ field.name }}
+            {%- else -%}
+              <a href="{{ site.wiki_url }}/Key:{{ field.name }}">{{ field.name }}</a>
+            {%- endif -%}
+          </td>
+          <td class="schema-type">{% include field-type.html field=field %}</td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</main>

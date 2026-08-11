@@ -1,0 +1,21 @@
+---
+layout: base
+title: Layers
+description: The thematic layers available from Layercake, with row counts, column references and file URLs.
+preload_explorer: true
+---
+<main class="page">
+  <div class="hero">
+    <h1>Layers</h1>
+    <p class="hero-blurb">
+      Each layer is a single GeoParquet file covering the whole planet. Open one
+      in the explorer, or point your own tools at its URL.
+    </p>
+    <p class="hero-meta" data-updated hidden></p>
+  </div>
+
+  <div class="dataset-list">
+    {% assign layers = site.layers | sort_natural: 'title' %}
+    {% for layer in layers %}{% include dataset.html layer=layer %}{% endfor %}
+  </div>
+</main>
