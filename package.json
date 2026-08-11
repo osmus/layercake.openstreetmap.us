@@ -1,0 +1,29 @@
+{
+  "name": "layercake-explorer",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "format": "biome check --formatter-enabled=true --linter-enabled=false --assist-enabled=true --write",
+    "lint": "biome lint",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "tsc --noEmit && biome check && vitest run"
+  },
+  "dependencies": {
+    "@b9g/crank": "^0.7.9",
+    "@duckdb/duckdb-wasm": "^1.33.1-dev53.0",
+    "fflate": "^0.8.3",
+    "maplibre-gl": "^5.23.0",
+    "terra-draw": "^1.12.0",
+    "terra-draw-maplibre-gl-adapter": "^1.1.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.5",
+    "@types/geojson": "^7946.0.16",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
+  }
+}
