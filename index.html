@@ -2,15 +2,50 @@
 layout: base
 ---
 <main class="landing">
-  <section class="lede wrap">
+  <section class="lede">
   <h1><code>SELECT <mark><b>*</b></mark> FROM <b>OPENSTREETMAP</b>;</code></h1>
-    <p class="lede-sub">
-      <mark><strong>Layercake</strong></mark> publishes OpenStreetMap data as thematic GeoParquet layers you can
-      read straight from a URL.
-    </p>
-    <p class="cta">
-      <a class="btn btn-primary btn-lg" href="{{ '/layers/' | relative_url }}">Browse the layers</a>
-      <!-- <a class="btn btn-lg" href="{{ '/docs/quickstart/' | relative_url }}">Quickstart</a> -->
-    </p>
+  <p class="lede-sub">
+    <mark><strong>Layercake</strong></mark> converts OpenStreetMap data into tables and publishes
+    them as GeoParquet layers that you can query with SQL, straight from a URL.
+  </p>
+  <p class="cta">
+    <a class="btn btn-primary btn-lg" href="{{ '/layers/' | relative_url }}">Browse the layers</a>
+    <!-- <a class="btn btn-lg" href="{{ '/docs/quickstart/' | relative_url }}">Quickstart</a> -->
+  </p>
+  </section>
+
+  <section class="pitch">
+  <h2>Compatible with your favorite tools</h2>
+  <p>
+    Most geospatial data comes in tables: a separate file per layer, with a fixed set of columns and
+    OGC Geometries. OpenStreetMap's native format does not fit this mould, which makes it harder to
+    use with common GIS tools and workflows.
+  </p>
+  <p>
+    Layercake translates OSM data into tabular form, and publishes the results for anyone to
+    use. Query it with SQL using <a href="https://duckdb.org/">DuckDB</a>, load it into a Pandas
+    dataframe with <a href="https://geopandas.org/">GeoPandas</a>, or open it directly in <a
+    href="https://qgis.org/">QGIS</a>.
+  </p>
+
+  <hr>
+
+  <h2>No download required</h2>
+  <p>
+    Layercake uses GeoParquet, a cloud-native file format. This means software can efficiently
+    access the data from a remote server using HTTP Range Requests. You don't need to download an
+    entire Layercake layer to use it; just point your tool at the layer's URL and it will fetch the
+    portions of the file it needs on demand.
+  </p>
+
+  <hr>
+
+  <h2>No new taxonomy</h2>
+  <p>
+    Layercake presents OpenStreetMap's folksonomy of tags directly, rather than inventing a new
+    schema or classification system. Is a print shop different from a copyshop? Is a pizzeria a type
+    of Italian restaurant? <strong>Layercake has no opinion.</strong> Columns map one-to-one to OSM
+    tags, so you can interpret the data in whatever way makes sense for your use case.
+  </p>
   </section>
 </main>
