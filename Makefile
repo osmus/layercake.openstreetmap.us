@@ -1,5 +1,5 @@
 DATA_URL := https://data.openstreetmap.us/layercake
-LAYERS := addresses boundaries buildings highways parks pois settlements
+LAYERS := addresses boundaries buildings highways parks pois settlements waterways
 SCHEMAS := $(LAYERS:%=_data/schema/%.json)
 
 .PHONY: all app site serve update-schema clean
