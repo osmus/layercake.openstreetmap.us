@@ -1,3 +1,5 @@
+import turfArea from "@turf/area";
+import bboxPolygon from "@turf/bbox-polygon";
 import type { Position } from "geojson";
 import type { Bounds, Feature, Fid, SimpleGeometry } from "../types.ts";
 import { FID } from "../types.ts";
@@ -31,6 +33,11 @@ export function bbox(geometry: SimpleGeometry): Bounds {
 
   walk(geometry.coordinates);
   return { xmin, ymin, xmax, ymax };
+}
+
+/** Ground area covered by a bounding box, in square kilometres. */
+export function boundsArea({ xmin, ymin, xmax, ymax }: Bounds): number {
+  return turfArea(bboxPolygon([xmin, ymin, xmax, ymax])) / 1e6;
 }
 
 /**

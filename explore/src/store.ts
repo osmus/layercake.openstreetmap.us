@@ -2,6 +2,7 @@ import { FIRST_TAG_COLUMN_INDEX, loadCatalog, loadUpdatedAt } from "./catalog.ts
 import { DuckDB } from "./duckdb.ts";
 import { download } from "./export/download.ts";
 import type { FormatId } from "./export/formats.ts";
+import { boundsArea } from "./map/geometry.ts";
 import type { MapView } from "./map/MapView.ts";
 import { defaultOperator, operatorsFor } from "./query/filters.ts";
 import { type Source, selectSQL } from "./query/sql.ts";
@@ -20,6 +21,7 @@ import {
 } from "./types.ts";
 
 const FILTER_DEBOUNCE_MS = 200;
+const MAX_FETCH_AREA_KM2 = 25_000;
 
 let nextFilterId = 0;
 
@@ -51,6 +53,7 @@ export class Store {
   private db = new DuckDB();
   private renderQueued = false;
   private refreshTimer: ReturnType<typeof setTimeout> | undefined;
+  private extentBlocked = false;
 
   // bumped by openSession, fetch, etc; async tasks should check this
   // and abort if it has changed since they were fired.
@@ -106,14 +109,42 @@ export class Store {
     return typeof this.engine === "object";
   }
 
-  /** Why a fetch cannot run right now, or null if it can. */
-  get blockedReason(): string | null {
+  /** Ground area the next fetch would cover, in km², or null before the map loads. */
+  get extentArea(): number | null {
+    if (!this.map) return null;
+    return boundsArea(this.session?.area?.bounds ?? this.map.viewportBounds());
+  }
+
+  get extentTooLarge(): boolean {
+    const area = this.extentArea;
+    return area !== null && area > MAX_FETCH_AREA_KM2;
+  }
+
+  get tooLargeReason(): string {
+    return `Area too large to fetch (limit: ${Math.round(MAX_FETCH_AREA_KM2).toLocaleString()} km²). Zoom in, or draw a smaller bbox or polygon.`;
+  }
+
+  /** Why the app cannot query yet, or null if it is fully initialized. */
+  get notReadyReason(): string | null {
     if (typeof this.engine === "object") {
       return `Query engine failed to start: ${this.engine.error.message}`;
     }
     if (this.engine === "starting") return "Starting query engine";
     if (!this.map) return "Waiting for the map";
     return null;
+  }
+
+  /** Why a fetch cannot run right now, or null if it can. */
+  get blockedReason(): string | null {
+    return this.notReadyReason ?? (this.extentTooLarge ? this.tooLargeReason : null);
+  }
+
+  /** Called by MapView as the viewport moves. */
+  onExtentChange() {
+    const blocked = this.extentTooLarge;
+    if (blocked === this.extentBlocked) return;
+    this.extentBlocked = blocked;
+    this.notify();
   }
 
   /** Open a layer and record it in history. */

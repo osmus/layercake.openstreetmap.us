@@ -224,6 +224,12 @@ body {
   animation: fade-in 120ms ease-out;
 }
 
+.map-status.hint {
+  max-width: min(24rem, 80%);
+  text-align: center;
+  text-wrap: balance;
+}
+
 .map-status-elapsed {
   min-width: 3ch;
   font-family: var(--font-mono);

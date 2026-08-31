@@ -13,6 +13,7 @@ export function* MapPane(this: Context<MapPaneProps, HTMLElement>, props: MapPan
       onFeatureClick: (fid) => props.onFeatureClick(fid),
       onFeatureHover: (fid) => props.onFeatureHover(fid),
       onAreaDrawn: (area) => props.onAreaDrawn(area),
+      onExtentChange: () => props.onExtentChange(),
     }).then((created) => {
       view = created;
       props.onReady(created);

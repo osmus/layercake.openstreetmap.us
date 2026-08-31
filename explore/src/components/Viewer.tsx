@@ -8,12 +8,24 @@ import { Toolbar } from "./Toolbar.tsx";
 
 /** Progress indicator that appears over the map when fetching, rendering, etc */
 function MapStatus({ store }: { store: Store }) {
-  if (!store.busy) return null;
+  if (store.busy) {
+    return (
+      <div class="map-status" role="status">
+        <Spinner />
+        <span>{store.busy}...</span>
+        <span class="map-status-elapsed">
+          {store.busySeconds > 2 ? `${store.busySeconds}s` : ""}
+        </span>
+      </div>
+    );
+  }
+
+  const session = store.session;
+  if (!session || session.drawTool !== null || !store.extentTooLarge) return null;
+
   return (
-    <div class="map-status" role="status">
-      <Spinner />
-      <span>{store.busy}...</span>
-      <span class="map-status-elapsed">{store.busySeconds > 2 ? `${store.busySeconds}s` : ""}</span>
+    <div class="map-status hint" role="status">
+      {store.tooLargeReason}
     </div>
   );
 }
@@ -36,8 +48,8 @@ function TableBody({ store }: { store: Store }) {
 
   if (session.features.length === 0) {
     if (store.busy) return <LoadingState>Loading features</LoadingState>;
-    if (store.engineFailed) return <p class="empty-state">{store.blockedReason}</p>;
-    if (store.blockedReason) return <LoadingState>{store.blockedReason}</LoadingState>;
+    if (store.engineFailed) return <p class="empty-state">{store.notReadyReason}</p>;
+    if (store.notReadyReason) return <LoadingState>{store.notReadyReason}</LoadingState>;
     return <p class="empty-state">No features loaded. Pan or draw an area, then fetch.</p>;
   }
 
@@ -86,6 +98,7 @@ export function* Viewer(this: Context<ViewerProps>, props: ViewerProps) {
             onFeatureClick={(fid) => store.selectFromMap(fid)}
             onFeatureHover={(fid) => store.hover(fid)}
             onAreaDrawn={(area) => store.onAreaDrawn(area)}
+            onExtentChange={() => store.onExtentChange()}
           />
           <MapStatus store={store} />
         </div>

@@ -21,6 +21,7 @@ export interface MapViewEvents {
   onFeatureClick(fid: Fid | null): void;
   onFeatureHover(fid: Fid | null): void;
   onAreaDrawn(area: Area): void;
+  onExtentChange(): void;
 }
 
 export class MapView {
@@ -97,6 +98,8 @@ export class MapView {
       map.getCanvas().style.cursor = "";
       this.events.onFeatureHover(null);
     });
+
+    map.on("move", () => this.events.onExtentChange());
   }
 
   async setFeatures(features: Feature[]): Promise<void> {
